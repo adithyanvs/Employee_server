@@ -42,4 +42,18 @@ router.post("/register",async(req,res) =>{
 
 //2.Get user data
 
+router.get("/getdata",async(req,res) =>{
+  try {
+      const userdata = await users.find()
+      res.status(201).json(userdata)
+      console.log(userdata);
+  } catch (error) {
+    res.status(404).json(error)
+  }
+})
+
+//3.Get individual user information
+
+
+
 module.exports = router
