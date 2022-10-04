@@ -2,10 +2,6 @@ const express = require("express");
 const router = express.Router();
 const users = require("../models/userSchema");
 
-// router.get("/",(req,res) =>{
-//     console.log("connect");
-// })
-
 //1.Register user data
 router.post("/register", async (req, res) => {
   // console.log(req.body);
@@ -17,7 +13,7 @@ router.post("/register", async (req, res) => {
 
   try {
     const preuser = await users.findOne({ name: name });
-    console.log(preuser);
+    // console.log(preuser);
 
     if (preuser) {
       res.status(422).json("This Employee is already present");
@@ -30,7 +26,7 @@ router.post("/register", async (req, res) => {
 
       await adduser.save();
       res.status(201).json(adduser);
-      console.log(adduser);
+      // console.log(adduser);
     }
   } catch (error) {
     res.status(422).json(error);
@@ -43,7 +39,7 @@ router.get("/getdata", async (req, res) => {
   try {
     const userdata = await users.find();
     res.status(201).json(userdata);
-    console.log(userdata);
+    // console.log(userdata);
   } catch (error) {
     res.status(422).json(error);
   }
@@ -53,11 +49,11 @@ router.get("/getdata", async (req, res) => {
 
 router.get("/getuser/:id", async (req, res) => {
   try {
-    console.log(req.params);
+    // console.log(req.params);
     const { id } = req.params;
 
     const userindividual = await users.findById({ _id: id });
-    console.log(userindividual);
+    // console.log(userindividual);
     res.status(201).json(userindividual);
   } catch (error) {
     res.status(422).json(error);
@@ -74,7 +70,7 @@ router.patch("/updateuser/:id", async (req, res) => {
       new: true,
     });
 
-    console.log(updateuser);
+    // console.log(updateuser);
     res.status(201).json(updateuser);
   } catch (error) {
     res.status(422).json(error);
@@ -83,17 +79,17 @@ router.patch("/updateuser/:id", async (req, res) => {
 
 //5.Delete user
 
-router.delete("/deleteuser/:id",async(req,res)=>{
+router.delete("/deleteuser/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deleteuser = await users.findByIdAndDelete({_id:id})
+    const deleteuser = await users.findByIdAndDelete({ _id: id });
 
-    console.log(deleteuser);
+    // console.log(deleteuser);
     res.status(201).json(deleteuser);
   } catch (error) {
     res.status(422).json(error);
   }
-})
+});
 
 module.exports = router;
